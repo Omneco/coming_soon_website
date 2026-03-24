@@ -127,26 +127,63 @@
       <!-- Replace YOUR_FORMSPREE_FORM_ID with the form ID from your Formspree dashboard (formspree.io/f/<id>) -->
       <form
         id="waitlist-form"
-        class="mt-8 flex flex-col sm:flex-row gap-3 w-full max-w-[500px]"
+        class="mt-8 flex flex-col gap-5 w-full max-w-[500px]"
         action="https://formspree.io/f/YOUR_FORMSPREE_FORM_ID"
         method="POST"
         novalidate
       >
-        <div class="relative flex-grow">
+        <!-- Name field -->
+        <div class="relative pb-1">
+          <input
+            id="name-input"
+            name="name"
+            type="text"
+            class="w-full bg-[#0A110E]/40 border border-[#738B7E]/30 rounded-lg px-5 py-4 text-[#F2F7F4] placeholder-[#738B7E]/60 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all duration-300 backdrop-blur-sm"
+            placeholder="Your full name"
+            required
+            aria-label="Full name"
+          >
+          <p id="name-error" class="absolute -bottom-4 left-1 text-xs text-red-400 hidden" role="alert"></p>
+        </div>
+
+        <!-- Interest field -->
+        <div class="relative">
+          <select
+            id="interest-select"
+            name="interest"
+            class="w-full bg-[#0A110E]/40 border border-[#738B7E]/30 rounded-lg px-5 py-4 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all duration-300 backdrop-blur-sm appearance-none cursor-pointer text-[#738B7E]/60"
+            aria-label="Area of interest"
+          >
+            <option value="" disabled selected>Your area of interest (optional)</option>
+            <option value="General / Consumer">General / Consumer</option>
+            <option value="Business / Enterprise">Business / Enterprise</option>
+            <option value="Partnership">Partnership</option>
+            <option value="Investment">Investment</option>
+            <option value="Other">Other</option>
+          </select>
+          <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#738B7E]">
+            <span class="material-symbols-outlined text-base leading-none">expand_more</span>
+          </span>
+        </div>
+
+        <!-- Email field -->
+        <div class="relative pb-1">
           <input
             id="email-input"
             name="email"
+            type="email"
             class="w-full bg-[#0A110E]/40 border border-[#738B7E]/30 rounded-lg px-5 py-4 text-[#F2F7F4] placeholder-[#738B7E]/60 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all duration-300 backdrop-blur-sm"
             placeholder="Enter your email address"
             required
-            type="email"
             aria-label="Email address"
           >
-          <p id="email-error" class="absolute -bottom-5 left-1 text-xs text-red-400 hidden" role="alert"></p>
+          <p id="email-error" class="absolute -bottom-4 left-1 text-xs text-red-400 hidden" role="alert"></p>
         </div>
+
+        <!-- Submit button -->
         <button
           id="submit-btn"
-          class="bg-primary text-[#0A110E] font-bold px-8 py-4 rounded-lg hover:bg-[#11d64c] hover:shadow-[0_0_20px_rgba(19,236,84,0.3)] transition-all duration-300 whitespace-nowrap active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
+          class="w-full bg-primary text-[#0A110E] font-bold px-8 py-4 rounded-lg hover:bg-[#11d64c] hover:shadow-[0_0_20px_rgba(19,236,84,0.3)] transition-all duration-300 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
           type="submit"
         >
           Notify Me
@@ -175,47 +212,69 @@
       if (yearEl) { yearEl.textContent = new Date().getFullYear(); }
 
       var form = document.getElementById('waitlist-form');
+      var nameInput = document.getElementById('name-input');
+      var nameError = document.getElementById('name-error');
+      var interestSelect = document.getElementById('interest-select');
       var emailInput = document.getElementById('email-input');
       var emailError = document.getElementById('email-error');
       var submitBtn = document.getElementById('submit-btn');
       var successMessage = document.getElementById('success-message');
 
-      function showError(message) {
-        emailError.textContent = message;
-        emailError.classList.remove('hidden');
-        emailInput.classList.add('border-red-400/60', 'focus:border-red-400/60', 'focus:ring-red-400/20');
-        emailInput.classList.remove('focus:border-primary/50', 'focus:ring-primary/30');
+      // Update select text colour: muted when placeholder, white when a value is chosen
+      interestSelect.addEventListener('change', function () {
+        interestSelect.classList.toggle('text-[#F2F7F4]', interestSelect.value !== '');
+        interestSelect.classList.toggle('text-[#738B7E]/60', interestSelect.value === '');
+      });
+
+      function showFieldError(input, errorEl, message) {
+        errorEl.textContent = message;
+        errorEl.classList.remove('hidden');
+        input.classList.add('border-red-400/60');
+        input.classList.remove('border-[#738B7E]/30');
       }
 
-      function clearError() {
-        emailError.classList.add('hidden');
-        emailError.textContent = '';
-        emailInput.classList.remove('border-red-400/60', 'focus:border-red-400/60', 'focus:ring-red-400/20');
-        emailInput.classList.add('focus:border-primary/50', 'focus:ring-primary/30');
+      function clearFieldError(input, errorEl) {
+        errorEl.classList.add('hidden');
+        errorEl.textContent = '';
+        input.classList.remove('border-red-400/60');
+        input.classList.add('border-[#738B7E]/30');
       }
+
+      nameInput.addEventListener('input', function () {
+        if (!nameError.classList.contains('hidden')) { clearFieldError(nameInput, nameError); }
+      });
 
       emailInput.addEventListener('input', function () {
-        if (emailError.textContent) {
-          clearError();
-        }
+        if (!emailError.classList.contains('hidden')) { clearFieldError(emailInput, emailError); }
       });
 
       form.addEventListener('submit', function (e) {
         e.preventDefault();
-        clearError();
+        clearFieldError(nameInput, nameError);
+        clearFieldError(emailInput, emailError);
 
+        var name = nameInput.value.trim();
         var email = emailInput.value.trim();
+        var hasError = false;
 
+        // Validate email first so focus lands on the first field if both are empty
         if (!email) {
-          showError('Please enter your email address.');
-          emailInput.focus();
-          return;
+          showFieldError(emailInput, emailError, 'Please enter your email address.');
+          hasError = true;
+        } else if (!emailInput.validity.valid) {
+          showFieldError(emailInput, emailError, 'Please enter a valid email address.');
+          hasError = true;
         }
 
-        // Use the browser's native email validity check (RFC 5321-compliant)
-        if (!emailInput.validity.valid) {
-          showError('Please enter a valid email address.');
-          emailInput.focus();
+        if (!name) {
+          showFieldError(nameInput, nameError, 'Please enter your name.');
+          hasError = true;
+        }
+
+        if (hasError) {
+          // Focus the first field that has an error
+          if (!nameError.classList.contains('hidden')) { nameInput.focus(); }
+          else { emailInput.focus(); }
           return;
         }
 
@@ -230,7 +289,7 @@
             'Replace YOUR_FORMSPREE_FORM_ID in the <form> action attribute ' +
             'with your real Formspree form ID (formspree.io/f/<id>).'
           );
-          showError('Form is not configured yet. Please contact the site administrator.');
+          showFieldError(emailInput, emailError, 'Form is not configured yet. Please contact the site administrator.');
           submitBtn.disabled = false;
           submitBtn.textContent = 'Notify Me';
           return;
@@ -250,7 +309,7 @@
             successMessage.classList.add('visible');
           })
           .catch(function () {
-            showError('Something went wrong. Please try again.');
+            showFieldError(emailInput, emailError, 'Something went wrong. Please try again.');
             submitBtn.disabled = false;
             submitBtn.textContent = 'Notify Me';
           });
