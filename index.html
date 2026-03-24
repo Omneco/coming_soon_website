@@ -97,7 +97,12 @@
     }
   </style>
 </head>
-<body class="bg-[#0A110E] text-[#F2F7F4] h-screen w-screen relative flex items-center justify-center animate-fade-in">
+<body class="bg-[#0A110E] text-[#F2F7F4] h-screen w-screen relative flex flex-col animate-fade-in">
+
+  <!-- Header -->
+  <header class="relative z-10 w-full px-6 py-5 flex items-center">
+    <span class="text-primary font-black tracking-tight text-xl select-none">Omneco</span>
+  </header>
 
   <!-- Dynamic Background Mesh -->
   <div class="absolute inset-0 overflow-hidden w-full h-full z-0">
@@ -107,7 +112,7 @@
   </div>
 
   <!-- Content Container -->
-  <div class="relative z-10 w-full px-6 flex justify-center items-center h-full">
+  <div class="relative z-10 w-full px-6 flex-1 flex justify-center items-center">
     <div class="glass-panel rounded-lg p-[clamp(32px,6vw,64px)] max-w-[800px] flex flex-col items-center text-center space-y-6">
 
       <h1 class="title-text font-black tracking-[-0.033em] text-[#F2F7F4]">
@@ -158,8 +163,17 @@
     </div>
   </div>
 
+  <!-- Footer -->
+  <footer class="relative z-10 w-full px-6 py-5 flex items-center justify-center border-t border-[#738B7E]/10">
+    <p class="text-xs text-[#738B7E]">&copy; <span id="footer-year"></span> Omneco. All rights reserved.</p>
+  </footer>
+
   <script>
     (function () {
+      // Set footer year dynamically
+      var yearEl = document.getElementById('footer-year');
+      if (yearEl) { yearEl.textContent = new Date().getFullYear(); }
+
       var form = document.getElementById('waitlist-form');
       var emailInput = document.getElementById('email-input');
       var emailError = document.getElementById('email-error');
