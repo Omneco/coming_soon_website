@@ -160,7 +160,7 @@
             id="interest-select"
             name="interest"
             class="w-full border border-[#738B7E]/30 rounded-lg px-5 pr-12 py-4 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all duration-300 backdrop-blur-sm cursor-pointer"
-            style="-webkit-appearance: none; -moz-appearance: none; appearance: none; background-color: #0d1a12; color: #738B7E; background-image: none;"
+            style="-webkit-appearance: none; -moz-appearance: none; appearance: none; background-color: #0d1a12; color: rgba(115, 139, 126, 0.6); background-image: none;"
             aria-label="Area of interest"
           >
             <option value="" disabled selected hidden style="background-color: #0d1a12; color: #738B7E;">Your area of interest (optional)</option>
@@ -233,8 +233,7 @@
 
       // Update select text colour: muted when placeholder, white when a value is chosen
       interestSelect.addEventListener('change', function () {
-        interestSelect.classList.toggle('text-[#F2F7F4]', interestSelect.value !== '');
-        interestSelect.classList.toggle('text-[#738B7E]/60', interestSelect.value === '');
+        interestSelect.style.color = interestSelect.value !== '' ? '#F2F7F4' : 'rgba(115, 139, 126, 0.6)';
       });
 
       function showFieldError(input, errorEl, message) {
