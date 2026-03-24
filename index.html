@@ -86,6 +86,14 @@
       z-index: 0;
     }
 
+    /* Suppress native dropdown arrow in all browsers */
+    #interest-select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: none;
+    }
+
     /* Success state for the form */
     .success-message {
       display: none;
@@ -152,7 +160,7 @@
             id="interest-select"
             name="interest"
             class="w-full border border-[#738B7E]/30 rounded-lg px-5 pr-12 py-4 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all duration-300 backdrop-blur-sm cursor-pointer"
-            style="-webkit-appearance: none; -moz-appearance: none; appearance: none; background-color: #0d1a12; color: #738B7E;"
+            style="-webkit-appearance: none; -moz-appearance: none; appearance: none; background-color: #0d1a12; color: #738B7E; background-image: none;"
             aria-label="Area of interest"
           >
             <option value="" disabled selected style="background-color: #0d1a12; color: #738B7E;">Your area of interest (optional)</option>
