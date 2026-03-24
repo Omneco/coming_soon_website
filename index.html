@@ -119,10 +119,18 @@
       </p>
 
       <!-- Signup Form -->
-      <form id="waitlist-form" class="mt-8 flex flex-col sm:flex-row gap-3 w-full max-w-[500px]" novalidate>
+      <!-- Replace YOUR_GETFORM_ENDPOINT_ID with the hash from your Getform form URL (getform.io/f/<id>) -->
+      <form
+        id="waitlist-form"
+        class="mt-8 flex flex-col sm:flex-row gap-3 w-full max-w-[500px]"
+        action="https://getform.io/f/YOUR_GETFORM_ENDPOINT_ID"
+        method="POST"
+        novalidate
+      >
         <div class="relative flex-grow">
           <input
             id="email-input"
+            name="email"
             class="w-full bg-[#0A110E]/40 border border-[#738B7E]/30 rounded-lg px-5 py-4 text-[#F2F7F4] placeholder-[#738B7E]/60 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all duration-300 backdrop-blur-sm"
             placeholder="Enter your email address"
             required
@@ -197,20 +205,41 @@
           return;
         }
 
-        // Disable the form while "submitting"
+        // Disable the form while submitting
         submitBtn.disabled = true;
         submitBtn.textContent = 'Joining…';
 
-        // TODO: Replace this timeout with a real API call, e.g.:
-        // fetch('/api/waitlist', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-        //   body: JSON.stringify({ email: email }) })
-        //   .then(function(res) { if (!res.ok) throw new Error('Request failed'); })
-        //   .then(function() { form.style.display = 'none'; successMessage.classList.add('visible'); })
-        //   .catch(function() { showError('Something went wrong. Please try again.'); submitBtn.disabled = false; submitBtn.textContent = 'Notify Me'; });
-        setTimeout(function () {
-          form.style.display = 'none';
-          successMessage.classList.add('visible');
-        }, 800);
+        // Guard: warn loudly if the Getform endpoint has not been configured yet.
+        if (form.action.indexOf('YOUR_GETFORM_ENDPOINT_ID') !== -1) {
+          console.error(
+            '[Getform] Form endpoint is not configured. ' +
+            'Replace YOUR_GETFORM_ENDPOINT_ID in the <form> action attribute ' +
+            'with your real Getform endpoint hash (getform.io/f/<id>).'
+          );
+          showError('Form is not configured yet. Please contact the site administrator.');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Notify Me';
+          return;
+        }
+
+        // Submit to Getform via AJAX so we can show our own success/error UI.
+        // The endpoint is taken from the form's action attribute —
+        // replace YOUR_GETFORM_ENDPOINT_ID in the <form> tag above with your real Getform hash.
+        fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        })
+          .then(function (response) {
+            if (!response.ok) { throw new Error('Request failed with status ' + response.status); }
+            form.style.display = 'none';
+            successMessage.classList.add('visible');
+          })
+          .catch(function () {
+            showError('Something went wrong. Please try again.');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Notify Me';
+          });
       });
     })();
   </script>
