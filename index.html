@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Omneco - Coming Soon</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#13ec54",
+            "background-light": "#f6f8f6",
+            "background-dark": "#102216",
+          },
+          fontFamily: {
+            "display": ["Inter"]
+          },
+          borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+          animation: {
+            'fade-in': 'fadeIn 3s ease-out forwards',
+            'orb-1': 'floatOrb1 20s infinite ease-in-out alternate',
+            'orb-2': 'floatOrb2 25s infinite ease-in-out alternate',
+            'orb-3': 'floatOrb3 30s infinite ease-in-out alternate',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            floatOrb1: {
+              '0%': { transform: 'translate(0, 0) scale(1)', opacity: '0.4' },
+              '100%': { transform: 'translate(10%, 15%) scale(1.1)', opacity: '0.6' },
+            },
+            floatOrb2: {
+              '0%': { transform: 'translate(0, 0) scale(1)', opacity: '0.3' },
+              '100%': { transform: 'translate(-15%, -10%) scale(1.2)', opacity: '0.5' },
+            },
+            floatOrb3: {
+              '0%': { transform: 'translate(0, 0) scale(1)', opacity: '0.2' },
+              '100%': { transform: 'translate(5%, -20%) scale(1.15)', opacity: '0.4' },
+            }
+          }
+        },
+      },
+    }
+  </script>
+  <style>
+    body {
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #0A110E;
+    }
+
+    .title-text {
+      font-size: clamp(32px, 8vw, 120px);
+      line-height: 1.1;
+    }
+
+    .sub-text {
+      font-size: clamp(16px, 2vw, 18px);
+      line-height: 1.6;
+    }
+
+    .glass-panel {
+      background: rgba(20, 32, 26, 0.35);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(212, 229, 217, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Suppress native dropdown arrow in all browsers */
+    #interest-select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: none;
+    }
+
+    /* Success state for the form */
+    .success-message {
+      display: none;
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+
+    .success-message.visible {
+      display: flex;
+    }
+  </style>
+</head>
+<body class="bg-[#0A110E] text-[#F2F7F4] h-screen w-screen relative flex flex-col animate-fade-in">
+
+  <!-- Header -->
+  <header class="relative z-10 w-full px-6 py-5 flex items-center">
+    <span class="text-primary font-black tracking-tight text-xl select-none">Omneco</span>
+  </header>
+
+  <!-- Dynamic Background Mesh -->
+  <div class="absolute inset-0 overflow-hidden w-full h-full z-0">
+    <div class="orb bg-primary/30 w-[clamp(400px,60vw,800px)] h-[clamp(400px,60vw,800px)] top-[-10%] left-[-10%] animate-orb-1 mix-blend-screen"></div>
+    <div class="orb bg-[#8AB99B]/30 w-[clamp(300px,50vw,700px)] h-[clamp(300px,50vw,700px)] bottom-[-20%] right-[-10%] animate-orb-2 mix-blend-screen"></div>
+    <div class="orb bg-primary/20 w-[clamp(200px,40vw,600px)] h-[clamp(200px,40vw,600px)] top-[40%] left-[30%] animate-orb-3 mix-blend-screen"></div>
+  </div>
+
+  <!-- Content Container -->
+  <div class="relative z-10 w-full px-6 flex-1 flex justify-center items-center">
+    <div class="glass-panel rounded-lg p-[clamp(32px,6vw,64px)] max-w-[800px] flex flex-col items-center text-center space-y-6">
+
+      <h1 class="title-text font-black tracking-[-0.033em] text-[#F2F7F4]">
+        Rooting and reaching.
+      </h1>
+
+      <p class="sub-text font-light text-[#738B7E] max-w-[600px]">
+        Great things take time to grow. We are currently finalizing our product to ensure it's precisely aligned with our vision before the big reveal. Join our waitlist to be the first to know.
+      </p>
+
+      <!-- Signup Form -->
+      <!-- Replace YOUR_FORMSPREE_FORM_ID with the form ID from your Formspree dashboard (formspree.io/f/<id>) -->
+      <form
+        id="waitlist-form"
+        class="mt-8 flex flex-col gap-5 w-full max-w-[500px]"
+        action="https://formspree.io/f/YOUR_FORMSPREE_FORM_ID"
+        method="POST"
+        novalidate
+      >
+        <!-- Name field -->
+        <div class="relative pb-1">
+          <input
+            id="name-input"
+            name="name"
+            type="text"
+            class="w-full bg-[#0A110E]/40 border border-[#738B7E]/30 rounded-lg px-5 py-4 text-[#F2F7F4] placeholder-[#738B7E]/60 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all duration-300 backdrop-blur-sm"
+            placeholder="Your full name"
+            required
+            aria-label="Full name"
+          >
+          <p id="name-error" class="absolute -bottom-4 left-1 text-xs text-red-400 hidden" role="alert"></p>
+        </div>
+
+        <!-- Interest field -->
+        <div class="relative">
+          <select
+            id="interest-select"
+            name="interest"
+            class="w-full border border-[#738B7E]/30 rounded-lg px-5 pr-12 py-4 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all duration-300 backdrop-blur-sm cursor-pointer"
+            style="-webkit-appearance: none; -moz-appearance: none; appearance: none; background-color: rgba(10, 17, 14, 0.4); color: rgba(115, 139, 126, 0.6); background-image: none;"
+            aria-label="Area of interest"
+          >
+            <option value="" disabled selected hidden style="background-color: #0A110E; color: rgba(115, 139, 126, 0.6);">Your area of interest (optional)</option>
+            <option value="General / Consumer" style="background-color: #0A110E; color: #F2F7F4;">General / Consumer</option>
+            <option value="Business / Enterprise" style="background-color: #0A110E; color: #F2F7F4;">Business / Enterprise</option>
+            <option value="Partnership" style="background-color: #0A110E; color: #F2F7F4;">Partnership</option>
+            <option value="Investment" style="background-color: #0A110E; color: #F2F7F4;">Investment</option>
+            <option value="Other" style="background-color: #0A110E; color: #F2F7F4;">Other</option>
+          </select>
+          <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#738B7E]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </span>
+        </div>
+
+        <!-- Email field -->
+        <div class="relative pb-1">
+          <input
+            id="email-input"
+            name="email"
+            type="email"
+            class="w-full bg-[#0A110E]/40 border border-[#738B7E]/30 rounded-lg px-5 py-4 text-[#F2F7F4] placeholder-[#738B7E]/60 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all duration-300 backdrop-blur-sm"
+            placeholder="Enter your email address"
+            required
+            aria-label="Email address"
+          >
+          <p id="email-error" class="absolute -bottom-4 left-1 text-xs text-red-400 hidden" role="alert"></p>
+        </div>
+
+        <!-- Submit button -->
+        <button
+          id="submit-btn"
+          class="w-full bg-primary text-[#0A110E] font-bold px-8 py-4 rounded-lg hover:bg-[#11d64c] hover:shadow-[0_0_20px_rgba(19,236,84,0.3)] transition-all duration-300 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
+          type="submit"
+        >
+          Notify Me
+        </button>
+      </form>
+
+      <!-- Success Message (hidden until form is submitted) -->
+      <div id="success-message" class="success-message flex-col items-center gap-2 text-center" role="status" aria-live="polite">
+        <span class="material-symbols-outlined text-primary text-4xl" aria-hidden="true">check_circle</span>
+        <p class="sub-text font-medium text-[#F2F7F4]">You're on the list!</p>
+        <p class="text-sm text-[#738B7E]">We'll reach out as soon as we launch.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="relative z-10 w-full px-6 py-5 flex items-center justify-center border-t border-[#738B7E]/10">
+    <p class="text-xs text-[#738B7E]">&copy; <span id="footer-year"></span> Omneco Private Limited. All rights reserved.</p>
+  </footer>
+
+  <script>
+    (function () {
+      // Set footer year dynamically
+      var yearEl = document.getElementById('footer-year');
+      if (yearEl) { yearEl.textContent = new Date().getFullYear(); }
+
+      var form = document.getElementById('waitlist-form');
+      var nameInput = document.getElementById('name-input');
+      var nameError = document.getElementById('name-error');
+      var interestSelect = document.getElementById('interest-select');
+      var emailInput = document.getElementById('email-input');
+      var emailError = document.getElementById('email-error');
+      var submitBtn = document.getElementById('submit-btn');
+      var successMessage = document.getElementById('success-message');
+
+      // Update select text colour: muted when placeholder, white when a value is chosen
+      interestSelect.addEventListener('change', function () {
+        interestSelect.style.color = interestSelect.value !== '' ? '#F2F7F4' : 'rgba(115, 139, 126, 0.6)';
+      });
+
+      function showFieldError(input, errorEl, message) {
+        errorEl.textContent = message;
+        errorEl.classList.remove('hidden');
+        input.classList.add('border-red-400/60');
+        input.classList.remove('border-[#738B7E]/30');
+      }
+
+      function clearFieldError(input, errorEl) {
+        errorEl.classList.add('hidden');
+        errorEl.textContent = '';
+        input.classList.remove('border-red-400/60');
+        input.classList.add('border-[#738B7E]/30');
+      }
+
+      nameInput.addEventListener('input', function () {
+        if (!nameError.classList.contains('hidden')) { clearFieldError(nameInput, nameError); }
+      });
+
+      emailInput.addEventListener('input', function () {
+        if (!emailError.classList.contains('hidden')) { clearFieldError(emailInput, emailError); }
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        clearFieldError(nameInput, nameError);
+        clearFieldError(emailInput, emailError);
+
+        var name = nameInput.value.trim();
+        var email = emailInput.value.trim();
+        var hasError = false;
+
+        // Validate email first so focus lands on the first field if both are empty
+        if (!email) {
+          showFieldError(emailInput, emailError, 'Please enter your email address.');
+          hasError = true;
+        } else if (!emailInput.validity.valid) {
+          showFieldError(emailInput, emailError, 'Please enter a valid email address.');
+          hasError = true;
+        }
+
+        if (!name) {
+          showFieldError(nameInput, nameError, 'Please enter your name.');
+          hasError = true;
+        }
+
+        if (hasError) {
+          // Focus the first field that has an error
+          if (!nameError.classList.contains('hidden')) { nameInput.focus(); }
+          else { emailInput.focus(); }
+          return;
+        }
+
+        // Disable the form while submitting
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Joining…';
+
+        // Guard: warn loudly if the Formspree endpoint has not been configured yet.
+        if (form.action.indexOf('YOUR_FORMSPREE_FORM_ID') !== -1) {
+          console.error(
+            '[Formspree] Form endpoint is not configured. ' +
+            'Replace YOUR_FORMSPREE_FORM_ID in the <form> action attribute ' +
+            'with your real Formspree form ID (formspree.io/f/<id>).'
+          );
+          showFieldError(emailInput, emailError, 'Form is not configured yet. Please contact the site administrator.');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Notify Me';
+          return;
+        }
+
+        // Submit to Formspree via AJAX so we can show our own success/error UI.
+        // The endpoint is taken from the form's action attribute —
+        // replace YOUR_FORMSPREE_FORM_ID in the <form> tag above with your real Formspree form ID.
+        fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        })
+          .then(function (response) {
+            if (!response.ok) { throw new Error('Request failed with status ' + response.status); }
+            form.style.display = 'none';
+            successMessage.classList.add('visible');
+          })
+          .catch(function () {
+            showFieldError(emailInput, emailError, 'Something went wrong. Please try again.');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Notify Me';
+          });
+      });
+    })();
+  </script>
+
+</body>
+</html>
