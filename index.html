@@ -151,19 +151,21 @@
           <select
             id="interest-select"
             name="interest"
-            class="w-full bg-[#0A110E]/40 border border-[#738B7E]/30 rounded-lg px-5 pr-12 py-4 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all duration-300 backdrop-blur-sm appearance-none cursor-pointer text-[#738B7E]/60"
-            style="-webkit-appearance: none; -moz-appearance: none; appearance: none;"
+            class="w-full border border-[#738B7E]/30 rounded-lg px-5 pr-12 py-4 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all duration-300 backdrop-blur-sm cursor-pointer"
+            style="-webkit-appearance: none; -moz-appearance: none; appearance: none; background-color: #0d1a12; color: #738B7E;"
             aria-label="Area of interest"
           >
-            <option value="" disabled selected>Your area of interest (optional)</option>
-            <option value="General / Consumer">General / Consumer</option>
-            <option value="Business / Enterprise">Business / Enterprise</option>
-            <option value="Partnership">Partnership</option>
-            <option value="Investment">Investment</option>
-            <option value="Other">Other</option>
+            <option value="" disabled selected style="background-color: #0d1a12; color: #738B7E;">Your area of interest (optional)</option>
+            <option value="General / Consumer" style="background-color: #0d1a12; color: #F2F7F4;">General / Consumer</option>
+            <option value="Business / Enterprise" style="background-color: #0d1a12; color: #F2F7F4;">Business / Enterprise</option>
+            <option value="Partnership" style="background-color: #0d1a12; color: #F2F7F4;">Partnership</option>
+            <option value="Investment" style="background-color: #0d1a12; color: #F2F7F4;">Investment</option>
+            <option value="Other" style="background-color: #0d1a12; color: #F2F7F4;">Other</option>
           </select>
           <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#738B7E]">
-            <span class="material-symbols-outlined text-base leading-none">expand_more</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
           </span>
         </div>
 
